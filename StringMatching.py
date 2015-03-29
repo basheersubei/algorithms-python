@@ -1,6 +1,8 @@
-# this function performs string matching using Dynamic Programming
+# this function performs string matching using Dynamic Programming.
+# it solves problem1 for HW4 in CS 401.
+# this code is stored on GitHub at:
+# https://github.com/basheersubei/algorithms-python/blob/master/StringMatching.py
 import sys
-
 
 # given strings x and y, and 2d list alpha containing distances,
 # and delta (cost for gap), return least cost for matching
@@ -111,7 +113,9 @@ def reconstruct_path(M, x, y, alpha):
     print seq2[::-1]
 
 
-string1 = "GATGTAACA"
+# string1 = "GATGTAACA"
+# string2 = "ATTACC"
+string1 = "GAT?TAACA"
 string2 = "ATTACC"
 
 # string1 = "CTACCG"
@@ -131,37 +135,49 @@ alpha = {}
 # alpha['A']['B'] and equals 1
 
 # custom non-default table of alpha, includes deltas
-for i in ['A', 'C', 'T', 'G', '-']:
+for i in ['A', 'C', 'T', 'G', '-', '?']:
     alpha[i] = {}
 alpha['A']['A'] = 0
 alpha['A']['C'] = 0.1
 alpha['A']['T'] = 0.1
 alpha['A']['G'] = 0.2
 alpha['A']['-'] = 0.1
+alpha['A']['?'] = 0
 
 alpha['C']['A'] = 0.2
 alpha['C']['C'] = 0
 alpha['C']['T'] = 0.3
 alpha['C']['G'] = 0.3
 alpha['C']['-'] = 0.1
+alpha['C']['?'] = 0
 
 alpha['T']['A'] = 0.5
 alpha['T']['C'] = 0.2
 alpha['T']['T'] = 0
 alpha['T']['G'] = 0.4
 alpha['T']['-'] = 0.2
+alpha['T']['?'] = 0
 
 alpha['G']['A'] = 0.4
 alpha['G']['C'] = 0.4
 alpha['G']['T'] = 0.2
 alpha['G']['G'] = 0
 alpha['G']['-'] = 0.2
+alpha['G']['?'] = 0
 
 alpha['-']['A'] = 0.2
 alpha['-']['C'] = 0.2
 alpha['-']['T'] = 0.1
 alpha['-']['G'] = 0.1
 alpha['-']['-'] = None
+alpha['-']['?'] = 1e309  # pretty much infinity
+
+alpha['?']['A'] = 0
+alpha['?']['C'] = 0
+alpha['?']['T'] = 0
+alpha['?']['G'] = 0
+alpha['?']['-'] = 1e309  # pretty much infinity
+alpha['?']['?'] = 0
 
 # delta is the cost of a single gap
 # delta = 1
